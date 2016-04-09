@@ -1,0 +1,25 @@
+
+Status at the moment:
+* any .torrent file can now be parsed to scan out relevant information from the 'info' dictionary in the .torrent file
+* relevant contents of the 'info' dictionary are now just being displayed without populating them in the bt_args, bt_info structures
+
+Tasks ahead:
+* need to add Sanity checks for 'info' segments that are being read, for e.g., need to check if an integer actually does have an integer value in it like 'i546e' and not like 'iHelloe'
+* Sanity check for IP:port peer_st
+(V) * need to figure out memory allocation for the bt_args, bt_info structures so as to be able to access its members in order to store parsed 'info' segments into them
+* How will 'handshakes' happen between peers ?
+    ** need to know how symmetric TCP connections can be established between peers by checking 'choked', 'interested', 'id' fields of the 'peer' structures
+    ** need to know how SHA1 hashes can be validated among peers to determine if they will participate in the same swarm or no
+(V) * need to correct hash_piece strings being stored in hex format (ff overflow errors currently)
+* how to check which 'piece' a peer is requesting from another peer?
+    ** need to check contents of the bt_msg structure being passed between peers. The bt_msg object will have information like which 'piece' is being requested, which 'block' of the file 'piece' is being requested, whether peer has that 'block' or 'piece' of file (need to check 'bitfield' structure of the bt_msg structure for this)
+* need to check live-ness of peers connected to each other using keep-alive message once every 2 minutes
+    ** need to handle unexpected peer connection failures
+* need to display file download status, number of connected peers in swarm, upload data and download data done at any time
+* need to figure out how to use non-blocking procedures for socket connections using select() and poll()
+* need to write a log file to summarize swarm activity; write information like handshakes among which peers, peer messages that are being exchanged, file download status, etc.
+* check default ports that seeder binds to in case port not specified with -b
+* write the 'Makefile'
+(V) * provide a verbose mode
+* check for memory leaks with valgrind
+* need to check documentation for each function written coz some functions have been modified

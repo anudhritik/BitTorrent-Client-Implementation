@@ -1,0 +1,9 @@
+
+# ignore all temporary files
+*~
+
+# ignore all object files
+*.o
+
+# ignore write-up file; submitted as project requirement
+writeup*.pdf

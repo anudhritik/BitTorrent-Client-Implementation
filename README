@@ -1,0 +1,57 @@
+
+Project 2 Milestone1: bit torrent client
+----------------------------------------------
+
+Name:  Anudhriti Reddy Katanguri
+uname: anukatan
+
+Name:  Abdul Mudabir Siraj Patel
+uname: abdpatel
+
+-----------------------------------------------
+
+This is skeleton development for your BitTorrent (BT) client. 
+
+Included Files and Purpose (feel free to change as necessary)
+
+bt_client.c   :   Main file where the control loop lives
+bt_setup.c    :   Contains setup code, such as parsing arguments
+bt_lib.c      :   Code for core functionality of bt
+
+bt_setup.h    :   Header file for setup
+bt_lib.h      :   Header file for bt_lib
+
+Suggested Additional Files [and headers]
+
+bt_io.c[.h]   :   File for handling input output
+bt_sock.c[.h] :   File for handling socket and network issues
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Test cases considered while .torrent file parsing
+1) "torrent file does not start with (first character in .torrent file) a dictionary but starts with: integer, list, string
+2) In a dictionary, it does not make sense to map a "key" that is an 'integer' to a value that is a "string", "integer", "list", so a dictionary should never begin with an
+integer, or "dictionary". E.g., there shouldn't ever be a case where we'll see something like "di434e ...", neither can there be a list or dictionary as "key" in a dictionary i.e.
+there won't be something like "dl1:a2:goe .." or "dd3:foo4:ball ..."
+3) No dictionary found inside "info" key, e.g. 4:infol3:egg5:sharkei98776e4:hell
+4) Dictionary found inside 'info' key but doesn't have relevant 'bt_info' contents
+5) 'length' key inside 'info' dictionary does not have an integer value for e.g, d4:infod6:length5:helloe
+6) a) 'piece length' inside 'info' dictionary should have a 'value' that is a power of 2
+   b) 'piece length' should have an integer value i.e. 12:piece lengthi262144e
+
+How to compile for Milestone1:
+    $ gcc bt_client.c bt_setup.c bt_lib.c -lcrypto -Wall -Wextra -g -o bt_client
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+more test cases checked:
+7) sanity checks for peer information
+	$ bt_client -p localhost moby_dick.txt.torrent
+	$ bt_client -p moby_dick.txt.torrent
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+NOTE
+
+* For this project, peers is a general term used to refer to any entity participating in the bit torrent swarm, so peers could either be seeders or leechers
+	** n_peers denotes .. TO DO
